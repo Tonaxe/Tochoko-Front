@@ -1,0 +1,75 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+:root {
+  --paper: #f7eedf;
+  --ink: #2b1a0f;
+  --choco: #6c491f;
+}
+
+body,
+app-root,
+.app-layout {
+  font-family: "Patrick Hand", cursive;
+  color: var(--ink);
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--paper);
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(108, 73, 31, 0.18), transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(108, 73, 31, 0.14), transparent 50%),
+    radial-gradient(circle at 40% 85%, rgba(0, 0, 0, 0.10), transparent 55%);
+  z-index: 0;
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/noise.png");
+  background-repeat: repeat;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+app-header,
+app-footer,
+.app-content {
+  position: relative;
+  z-index: 2;
+}
+
+.app-content {
+  flex: 1;
+}
+
+body {
+  letter-spacing: 0.02em;
+}
+
+button,
+a {
+  letter-spacing: 0.04em;
+}

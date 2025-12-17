@@ -1,0 +1,98 @@
+<section class="checkout">
+    <div class="checkout__shell">
+        <header class="checkout__header">
+            <h1 class="checkout__title">Checkout</h1>
+            <p class="checkout__subtitle">
+                Rellena tus datos y en segundos finalizas la compra.
+            </p>
+        </header>
+
+        <div class="checkout__grid">
+            <article class="card">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="field">
+                        <label>Nombre completo</label>
+                        <input type="text" formControlName="fullName" placeholder="Nombre y apellidos"
+                            [class.input--invalid]="f.fullName.touched && f.fullName.invalid" />
+                        <p class="error" *ngIf="f.fullName.touched && f.fullName.invalid">
+                            Campo obligatorio
+                        </p>
+                    </div>
+
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="email" formControlName="email" placeholder="tu@email.com"
+                            [class.input--invalid]="f.email.touched && f.email.invalid" />
+                        <p class="error" *ngIf="f.email.touched && f.email.invalid">
+                            Email no válido
+                        </p>
+                    </div>
+
+                    <div class="field">
+                        <label>Dirección</label>
+                        <input type="text" formControlName="addressLine1" placeholder="Calle, número, piso"
+                            [class.input--invalid]="
+                f.addressLine1.touched && f.addressLine1.invalid
+              " />
+                    </div>
+
+                    <div class="row">
+                        <div class="field">
+                            <label>Ciudad</label>
+                            <input type="text" formControlName="city" placeholder="Ciudad"
+                                [class.input--invalid]="f.city.touched && f.city.invalid" />
+                        </div>
+
+                        <div class="field">
+                            <label>Código postal</label>
+                            <input type="text" formControlName="postalCode" placeholder="08001" [class.input--invalid]="
+                  f.postalCode.touched && f.postalCode.invalid
+                " />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>País</label>
+                        <input type="text" formControlName="country" placeholder="España" />
+                    </div>
+
+                    <div class="shipping">
+                        <span class="shipping__badge">Envío</span>
+                        <span class="shipping__text">Envío fijo 10€ · SEUR</span>
+                    </div>
+
+                    <div class="trust">
+                        <p class="trust__title">Pagos seguros</p>
+                        <div class="trust__logos">
+                            <img src="assets/payments/visa.svg" alt="Visa" />
+                            <img src="assets/payments/mastercard.svg" alt="Mastercard" />
+                            <img src="assets/payments/paypal.svg" alt="PayPal" />
+                            <img src="assets/payments/bizum.svg" alt="Bizum" />
+                        </div>
+                        <p class="trust__hint">
+                            Serás redirigido a Stripe para completar el pago
+                        </p>
+                    </div>
+
+                    <button class="btn" type="submit" [disabled]="isSubmitting">
+                        {{ isSubmitting ? 'Procesando…' : 'Continuar al pago' }}
+                    </button>
+                </form>
+            </article>
+
+            <aside class="card card--side">
+                <h2>Tu pedido</h2>
+                <p><strong>Tochoko · Ladrillo</strong></p>
+                <img src="assets/logo-tochoko.png" alt="Ladrillo de chocolate Tochoko"
+                    class="checkout__product-image" />
+                <p>Envío incluido con SEUR</p>
+
+                <ul>
+                    <li>Pago seguro con Stripe</li>
+                    <li>Email de confirmación</li>
+                    <li>Seguimiento por código</li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+</section>
