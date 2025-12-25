@@ -19,7 +19,9 @@
 
             <span class="badge-discount">AHORRA 15%</span>
 
-            <h1 class="home__title">TOCHOKO DE KB <strong>(1,3 kg)</strong></h1>
+            <h1 class="home__title">
+                TOCHOKO DE KB <strong>(1,3 kg)</strong>
+            </h1>
 
             <p class="home__subtitle">
                 Ladrillo premium de cheesecake & chocolate
@@ -32,13 +34,14 @@
 
             <div class="purchase">
                 <div class="quantity">
-                    <button (click)="decrease()" [disabled]="canCreateOrder === false">
+                    <button (click)="decrease()" [disabled]="canCreateOrder === false || quantity <= 1">
                         −
                     </button>
 
                     <span>{{ quantity }}</span>
 
-                    <button (click)="increase()" [disabled]="canCreateOrder === false">
+                    <button (click)="increase()"
+                        [disabled]="canCreateOrder === false || (hasLimitInfo && quantity >= remainingUnits)">
                         +
                     </button>
                 </div>
@@ -50,15 +53,21 @@
 
             @if (canCreateOrder === false) {
             <p class="order-limit">
-                🚫 Límite de pedidos alcanzado
+                🚫 No quedan unidades disponibles
+            </p>
+            }
+
+            @if (canCreateOrder !== false && hasLimitInfo) {
+            <p class="order-limit">
+                ⏳ Quedan {{ remainingUnits }} unidades disponibles
             </p>
             }
 
             <p class="home__description">
                 Ladrillo artesanal de <strong>1,3 kg</strong> de cremosa
                 <strong>cheesecake Philadelphia</strong> y <strong>Nocilla</strong>,
-                con crujiente de <strong>pasta kataifi</strong>, <strong>toffee blando</strong>
-                y <strong>brownie fundente</strong>.
+                con crujiente de <strong>pasta kataifi</strong>,
+                <strong>toffee blando</strong> y <strong>brownie fundente</strong>.
             </p>
 
             <details class="accordion">
@@ -72,20 +81,37 @@
             <details class="accordion">
                 <summary>Ingredientes</summary>
 
-                <p><strong>Cheesecake de avellana:</strong> queso crema Philadelphia,
-                    yogur griego, Nocilla, huevo, maicena, agar-agar, vainilla, sal.</p>
+                <p>
+                    <strong>Cheesecake de avellana:</strong>
+                    queso crema Philadelphia, yogur griego, Nocilla,
+                    huevo, maicena, agar-agar, vainilla, sal.
+                </p>
 
-                <p><strong>Capa crujiente:</strong> pasta kataifi, mantequilla,
-                    chocolate con leche, avellanas.</p>
+                <p>
+                    <strong>Capa crujiente:</strong>
+                    pasta kataifi, mantequilla, chocolate con leche, avellanas.
+                </p>
 
-                <p><strong>Brownie fundente:</strong> chocolate negro, mantequilla,
-                    huevos, azúcar, harina de trigo, sal.</p>
+                <p>
+                    <strong>Brownie fundente:</strong>
+                    chocolate negro, mantequilla, huevos, azúcar,
+                    harina de trigo, sal.
+                </p>
 
-                <p><strong>Toffee:</strong> azúcar, nata, mantequilla, avellanas, sal.</p>
+                <p>
+                    <strong>Toffee:</strong>
+                    azúcar, nata, mantequilla, avellanas, sal.
+                </p>
 
-                <p><strong>Alérgenos:</strong> LECHE · HUEVO · FRUTOS DE CÁSCARA · GLUTEN · SOJA</p>
+                <p>
+                    <strong>Alérgenos:</strong>
+                    LECHE · HUEVO · FRUTOS DE CÁSCARA · GLUTEN · SOJA
+                </p>
 
-                <p><strong>Notas:</strong> Producto artesanal · Conservar en frío</p>
+                <p>
+                    <strong>Notas:</strong>
+                    Producto artesanal · Conservar en frío
+                </p>
             </details>
 
         </div>

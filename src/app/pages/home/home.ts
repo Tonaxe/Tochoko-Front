@@ -18,6 +18,8 @@ export class Home implements OnInit {
   selectedImage = 'assets/1.jpeg';
 
   canCreateOrder: boolean | null = null;
+  remainingUnits = 0;
+  hasLimitInfo = false;
 
   constructor(
     private router: Router,
@@ -28,9 +30,16 @@ export class Home implements OnInit {
     this.ordersApi.canCreateOrder().subscribe({
       next: res => {
         this.canCreateOrder = res.canCreate;
+        this.remainingUnits = Math.max(res.max - res.current, 0);
+        this.hasLimitInfo = true;
+
+        if (this.remainingUnits > 0 && this.quantity > this.remainingUnits) {
+          this.quantity = this.remainingUnits;
+        }
       },
       error: () => {
         this.canCreateOrder = true;
+        this.hasLimitInfo = false;
       }
     });
   }
@@ -45,7 +54,9 @@ export class Home implements OnInit {
 
   increase() {
     if (this.canCreateOrder === false) return;
-    this.quantity++;
+    if (!this.hasLimitInfo || this.quantity < this.remainingUnits) {
+      this.quantity++;
+    }
   }
 
   decrease() {
@@ -63,9 +74,7 @@ export class Home implements OnInit {
     if (this.canCreateOrder === false) return;
 
     this.router.navigate(['/checkout'], {
-      queryParams: {
-        qty: this.quantity
-      }
+      queryParams: { qty: this.quantity }
     });
   }
 }
