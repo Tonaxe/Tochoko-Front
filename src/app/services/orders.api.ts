@@ -3,44 +3,56 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface CreateOrderRequest {
-  fullName: string;
-  email: string;
-  phone: string;
-  addressLine1: string;
-  city: string;
-  postalCode: string;
-  country: string;
-  quantity: number;
+    fullName: string;
+    email: string;
+    phone: string;
+    addressLine1: string;
+    city: string;
+    postalCode: string;
+    country: string;
+    quantity: number;
 }
 
 export interface CreateOrderResponse {
-  trackingCode: string;
+    trackingCode: string;
 }
 
 export interface OrderTrackingResponse {
-  trackingCode: string;
-  status: 'PendingPayment' | 'Paid' | 'Preparing' | 'Shipped' | 'OutForDelivery' | 'Delivered';
-  quantity: number;
-  createdAt: string;
-  paidAt: string | null;
+    trackingCode: string;
+    status: 'PendingPayment' | 'Paid' | 'Preparing' | 'Shipped' | 'OutForDelivery' | 'Delivered';
+    quantity: number;
+    createdAt: string;
+    paidAt: string | null;
+}
+
+export interface CanCreateOrderResponse {
+    canCreate: boolean;
+    current: number;
+    max: number;
 }
 
 @Injectable({ providedIn: 'root' })
 export class OrdersApi {
-  private readonly baseUrl = 'https://tochoko-back.onrender.com';
+    private readonly baseUrl = 'https://tochoko-back.onrender.com';
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-  createOrder(payload: CreateOrderRequest): Observable<CreateOrderResponse> {
-    return this.http.post<CreateOrderResponse>(
-      `${this.baseUrl}/orders`,
-      payload
-    );
-  }
+    createOrder(payload: CreateOrderRequest): Observable<CreateOrderResponse> {
+        return this.http.post<CreateOrderResponse>(
+            `${this.baseUrl}/orders`,
+            payload
+        );
+    }
 
-  trackOrder(code: string): Observable<OrderTrackingResponse> {
-    return this.http.get<OrderTrackingResponse>(
-      `${this.baseUrl}/orders/track/${code}`
-    );
-  }
+    trackOrder(code: string): Observable<OrderTrackingResponse> {
+        return this.http.get<OrderTrackingResponse>(
+            `${this.baseUrl}/orders/track/${code}`
+        );
+    }
+
+    canCreateOrder(): Observable<CanCreateOrderResponse> {
+        return this.http.get<CanCreateOrderResponse>(
+            `${this.baseUrl}/orders/can-create`
+        );
+    }
 }

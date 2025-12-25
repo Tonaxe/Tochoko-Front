@@ -121,6 +121,17 @@
     cursor: pointer;
 }
 
+.buy:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.order-limit {
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #b00020;
+}
+
 .home__description {
     font-size: 14px;
     line-height: 1.6;
