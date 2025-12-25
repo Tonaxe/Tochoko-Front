@@ -33,6 +33,13 @@
                     </div>
 
                     <div class="field">
+                        <label>Instagram *</label>
+                        <input type="text" formControlName="instagram" placeholder="Nombre de usuario de Instagram"
+                            [class.input--invalid]="f.instagram.touched && f.instagram.invalid" />
+                        <p class="error" *ngIf="f.instagram.touched && f.instagram.invalid">Campo obligatorio</p>
+                    </div>
+
+                    <div class="field">
                         <label>Teléfono *</label>
                         <input type="tel" formControlName="phone" placeholder="+34 600 000 000"
                             [class.input--invalid]="f.phone.touched && f.phone.invalid" />
@@ -62,10 +69,14 @@
                         </div>
                     </div>
 
+                    <p class="error" *ngIf="f.postalCode.touched && f.postalCode.errors?.['notPeninsula']">
+                            Actualmente solo enviamos a la península.
+                        </p>
+
                     <div class="field">
                         <label>País *</label>
-                        <input type="text" formControlName="country" placeholder="España" 
-                                [class.input--invalid]="f.country.touched && f.country.invalid" />
+                        <input type="text" formControlName="country" placeholder="España"
+                            [class.input--invalid]="f.country.touched && f.country.invalid" />
                     </div>
 
                     <div class="shipping shipping--highlight">
@@ -86,7 +97,7 @@
                         </p>
                     </div>
 
-                    <button class="btn" type="submit" [disabled]="isSubmitting">
+                    <button class="btn" type="submit" [disabled]="form.invalid || isSubmitting">
                         {{ isSubmitting ? 'Procesando…' : 'Continuar al pago →' }}
                     </button>
 

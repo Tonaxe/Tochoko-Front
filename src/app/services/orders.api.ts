@@ -11,6 +11,7 @@ export interface CreateOrderRequest {
     postalCode: string;
     country: string;
     quantity: number;
+    instagram: string;
 }
 
 export interface CreateOrderResponse {
