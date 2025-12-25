@@ -15,7 +15,7 @@ export class Home implements OnInit {
   priceUnit = 49.99;
   priceOldUnit = 69.99;
   quantity = 1;
-  selectedImage = 'assets/1.jpeg';
+  selectedImage = 'assets/1.webp';
 
   canCreateOrder: boolean | null = null;
   remainingUnits = 0;
