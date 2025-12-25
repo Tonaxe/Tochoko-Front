@@ -17,9 +17,7 @@ export class Home implements OnInit {
   quantity = 1;
   selectedImage = 'assets/1.jpeg';
 
-  canCreateOrder = true;
-  limitInfo?: { current: number; max: number };
-  loadingLimit = true;
+  canCreateOrder: boolean | null = null;
 
   constructor(
     private router: Router,
@@ -30,15 +28,9 @@ export class Home implements OnInit {
     this.ordersApi.canCreateOrder().subscribe({
       next: res => {
         this.canCreateOrder = res.canCreate;
-        this.limitInfo = {
-          current: res.current,
-          max: res.max
-        };
-        this.loadingLimit = false;
       },
       error: () => {
         this.canCreateOrder = true;
-        this.loadingLimit = false;
       }
     });
   }
@@ -52,10 +44,12 @@ export class Home implements OnInit {
   }
 
   increase() {
+    if (this.canCreateOrder === false) return;
     this.quantity++;
   }
 
   decrease() {
+    if (this.canCreateOrder === false) return;
     if (this.quantity > 1) {
       this.quantity--;
     }
@@ -66,7 +60,7 @@ export class Home implements OnInit {
   }
 
   goToCheckout() {
-    if (!this.canCreateOrder) return;
+    if (this.canCreateOrder === false) return;
 
     this.router.navigate(['/checkout'], {
       queryParams: {

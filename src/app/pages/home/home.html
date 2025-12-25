@@ -1,80 +1,93 @@
 <section class="home">
-  <div class="home__layout">
-    <div class="home__media">
-      <div class="media__main">
-        <img [src]="selectedImage" alt="Tochoko imagen principal" />
-      </div>
+    <div class="home__layout">
 
-      <div class="media__thumbs">
-        <img src="assets/1.jpeg" (click)="selectImage('assets/1.jpeg')" />
-        <img src="assets/2.jpeg" (click)="selectImage('assets/2.jpeg')" />
-        <img src="assets/3.jpeg" (click)="selectImage('assets/3.jpeg')" />
-        <img src="assets/4.jpeg" (click)="selectImage('assets/4.jpeg')" />
-        <img src="assets/5.jpeg" (click)="selectImage('assets/5.jpeg')" />
-      </div>
-    </div>
+        <div class="home__media">
+            <div class="media__main">
+                <img [src]="selectedImage" alt="Tochoko imagen principal" />
+            </div>
 
-    <div class="home__info">
-      <span class="badge-discount">AHORRA 15%</span>
-
-      <h1 class="home__title">TOCHOKO DE KB <strong>(1,3 kg)</strong></h1>
-
-      <p class="home__subtitle">
-        Ladrillo premium de cheesecake & chocolate
-      </p>
-
-      <div class="home__price">
-        <span class="price--old">{{ totalOldPrice }} €</span>
-        <span class="price--offer">{{ totalPrice }} €</span>
-      </div>
-
-      <div class="purchase">
-        <div class="quantity">
-          <button (click)="decrease()">−</button>
-          <span>{{ quantity }}</span>
-          <button (click)="increase()">+</button>
+            <div class="media__thumbs">
+                <img src="assets/1.jpeg" (click)="selectImage('assets/1.jpeg')" />
+                <img src="assets/2.jpeg" (click)="selectImage('assets/2.jpeg')" />
+                <img src="assets/3.jpeg" (click)="selectImage('assets/3.jpeg')" />
+                <img src="assets/4.jpeg" (click)="selectImage('assets/4.jpeg')" />
+                <img src="assets/5.jpeg" (click)="selectImage('assets/5.jpeg')" />
+            </div>
         </div>
 
-        <button
-          class="buy"
-          [disabled]="!canCreateOrder || loadingLimit"
-          (click)="goToCheckout()"
-        >
-          Comprar ahora
-        </button>
-      </div>
+        <div class="home__info">
 
-      <p *ngIf="!canCreateOrder" class="order-limit">
-        🚫 Límite de pedidos alcanzado ({{ limitInfo?.current }}/{{ limitInfo?.max }})
-      </p>
+            <span class="badge-discount">AHORRA 15%</span>
 
-      <p class="home__description">
-        Ladrillo artesanal de <strong>1,3 kg</strong> de cremosa
-        <strong>cheesecake Philadelphia</strong> y <strong>Nocilla</strong>,
-        con crujiente de <strong>pasta kataifi</strong>, <strong>toffee blando</strong>
-        y <strong>brownie fundente</strong>.
-      </p>
+            <h1 class="home__title">TOCHOKO DE KB <strong>(1,3 kg)</strong></h1>
 
-      <details class="accordion">
-        <summary>Envíos y devoluciones</summary>
-        <p>
-          Envío gratuito a península. Producto artesanal alimentario.
-          No se aceptan devoluciones salvo incidencias en el transporte.
-        </p>
-      </details>
+            <p class="home__subtitle">
+                Ladrillo premium de cheesecake & chocolate
+            </p>
 
-      <details class="accordion">
-        <summary>Ingredientes</summary>
-        <p><strong>Cheesecake de avellana:</strong> queso crema Philadelphia,
-          yogur griego, Nocilla, huevo, maicena, agar-agar, vainilla, sal.</p>
-        <p><strong>Capa crujiente:</strong> pasta kataifi, mantequilla,
-          chocolate con leche, avellanas.</p>
-        <p><strong>Brownie fundente:</strong> chocolate negro, mantequilla,
-          huevos, azúcar, harina de trigo, sal.</p>
-        <p><strong>Toffee:</strong> azúcar, nata, mantequilla, avellanas, sal.</p>
-        <p><strong>Alérgenos:</strong> LECHE · HUEVO · FRUTOS DE CÁSCARA · GLUTEN · SOJA</p>
-        <p><strong>Notas:</strong> Producto artesanal · Conservar en frío</p>
-      </details>
+            <div class="home__price">
+                <span class="price--old">{{ totalOldPrice }} €</span>
+                <span class="price--offer">{{ totalPrice }} €</span>
+            </div>
+
+            <div class="purchase">
+                <div class="quantity">
+                    <button (click)="decrease()" [disabled]="canCreateOrder === false">
+                        −
+                    </button>
+
+                    <span>{{ quantity }}</span>
+
+                    <button (click)="increase()" [disabled]="canCreateOrder === false">
+                        +
+                    </button>
+                </div>
+
+                <button class="buy" (click)="goToCheckout()" [disabled]="canCreateOrder === false">
+                    Comprar ahora
+                </button>
+            </div>
+
+            @if (canCreateOrder === false) {
+            <p class="order-limit">
+                🚫 Límite de pedidos alcanzado
+            </p>
+            }
+
+            <p class="home__description">
+                Ladrillo artesanal de <strong>1,3 kg</strong> de cremosa
+                <strong>cheesecake Philadelphia</strong> y <strong>Nocilla</strong>,
+                con crujiente de <strong>pasta kataifi</strong>, <strong>toffee blando</strong>
+                y <strong>brownie fundente</strong>.
+            </p>
+
+            <details class="accordion">
+                <summary>Envíos y devoluciones</summary>
+                <p>
+                    Envío gratuito a península. Producto artesanal alimentario.
+                    No se aceptan devoluciones salvo incidencias en el transporte.
+                </p>
+            </details>
+
+            <details class="accordion">
+                <summary>Ingredientes</summary>
+
+                <p><strong>Cheesecake de avellana:</strong> queso crema Philadelphia,
+                    yogur griego, Nocilla, huevo, maicena, agar-agar, vainilla, sal.</p>
+
+                <p><strong>Capa crujiente:</strong> pasta kataifi, mantequilla,
+                    chocolate con leche, avellanas.</p>
+
+                <p><strong>Brownie fundente:</strong> chocolate negro, mantequilla,
+                    huevos, azúcar, harina de trigo, sal.</p>
+
+                <p><strong>Toffee:</strong> azúcar, nata, mantequilla, avellanas, sal.</p>
+
+                <p><strong>Alérgenos:</strong> LECHE · HUEVO · FRUTOS DE CÁSCARA · GLUTEN · SOJA</p>
+
+                <p><strong>Notas:</strong> Producto artesanal · Conservar en frío</p>
+            </details>
+
+        </div>
     </div>
-  </div>
 </section>
