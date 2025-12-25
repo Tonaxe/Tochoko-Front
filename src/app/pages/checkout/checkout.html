@@ -1,81 +1,93 @@
 <section class="checkout">
     <div class="checkout__shell">
 
+        <!-- HEADER -->
         <header class="checkout__header">
             <h1 class="checkout__title">Finalizar reserva</h1>
             <p class="checkout__subtitle">
-                Estás a un paso de asegurar tu Tochoko edición limitada.
+                Estás a un paso de asegurar tu Tochoko. Producción limitada.
             </p>
         </header>
 
         <div class="checkout__grid">
 
+            <!-- FORMULARIO -->
             <article class="card">
                 <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
 
+                    <!-- DATOS PERSONALES -->
+                    <h3 class="form-section">Datos personales</h3>
+
                     <div class="field">
-                        <label>Nombre completo</label>
+                        <label>Nombre completo *</label>
                         <input type="text" formControlName="fullName" placeholder="Nombre y apellidos"
                             [class.input--invalid]="f.fullName.touched && f.fullName.invalid" />
-                        <p class="error" *ngIf="f.fullName.touched && f.fullName.invalid">
-                            Campo obligatorio
-                        </p>
+                        <p class="error" *ngIf="f.fullName.touched && f.fullName.invalid">Campo obligatorio</p>
                     </div>
 
                     <div class="field">
-                        <label>Email</label>
+                        <label>Email *</label>
                         <input type="email" formControlName="email" placeholder="tu@email.com"
                             [class.input--invalid]="f.email.touched && f.email.invalid" />
-                        <p class="error" *ngIf="f.email.touched && f.email.invalid">
-                            Email no válido
-                        </p>
+                        <p class="error" *ngIf="f.email.touched && f.email.invalid">Email no válido</p>
                     </div>
 
                     <div class="field">
-                        <label>Dirección</label>
+                        <label>Teléfono *</label>
+                        <input type="tel" formControlName="phone" placeholder="+34 600 000 000"
+                            [class.input--invalid]="f.phone.touched && f.phone.invalid" />
+                        <p class="error" *ngIf="f.phone.touched && f.phone.invalid">Teléfono no válido</p>
+                    </div>
+
+                    <!-- DIRECCIÓN -->
+                    <h3 class="form-section">Dirección de envío</h3>
+
+                    <div class="field">
+                        <label>Dirección *</label>
                         <input type="text" formControlName="addressLine1" placeholder="Calle, número, piso"
                             [class.input--invalid]="f.addressLine1.touched && f.addressLine1.invalid" />
                     </div>
 
                     <div class="row">
                         <div class="field">
-                            <label>Ciudad</label>
+                            <label>Ciudad *</label>
                             <input type="text" formControlName="city" placeholder="Ciudad"
                                 [class.input--invalid]="f.city.touched && f.city.invalid" />
                         </div>
 
                         <div class="field">
-                            <label>Código postal</label>
+                            <label>Código postal *</label>
                             <input type="text" formControlName="postalCode" placeholder="08001"
                                 [class.input--invalid]="f.postalCode.touched && f.postalCode.invalid" />
                         </div>
                     </div>
 
                     <div class="field">
-                        <label>País</label>
-                        <input type="text" formControlName="country" placeholder="España" />
+                        <label>País *</label>
+                        <input type="text" formControlName="country" placeholder="España" 
+                                [class.input--invalid]="f.country.touched && f.country.invalid" />
                     </div>
 
-                    <div class="shipping">
-                        <span class="shipping__badge">Envío</span>
-                        <span class="shipping__text">Envío GRATIS · SEUR</span>
+                    <div class="shipping shipping--highlight">
+                        <span class="shipping__badge">ENVÍO GRATIS</span>
+                        <span class="shipping__text">
+                            Refrigerado · SEUR 24/48h (Península)
+                        </span>
                     </div>
 
                     <div class="trust">
-                        <p class="trust__title">Pagos seguros</p>
+                        <p class="trust__title">Pago seguro</p>
                         <div class="trust__logos">
-                            <img src="assets/payments/visa.svg" alt="Visa" />
-                            <img src="assets/payments/mastercard.svg" alt="Mastercard" />
-                            <img src="assets/payments/paypal.svg" alt="PayPal" />
                             <img src="assets/payments/bizum.svg" alt="Bizum" />
                         </div>
                         <p class="trust__hint">
-                            Serás redirigido a Stripe para completar el pago
+                            El pedido se confirma ahora. En breve recibirás una solicitud de Bizum para completar el
+                            pago.
                         </p>
                     </div>
 
                     <button class="btn" type="submit" [disabled]="isSubmitting">
-                        {{ isSubmitting ? 'Procesando…' : 'Continuar al pago' }}
+                        {{ isSubmitting ? 'Procesando…' : 'Continuar al pago →' }}
                     </button>
 
                 </form>
@@ -84,21 +96,29 @@
             <aside class="card card--side">
                 <h2>Tu pedido</h2>
 
-                <p><strong>TOCHOKO DE KB</strong></p>
+                <p class="product-name"><strong>TOCHOKO DE KB (1,3 kg)</strong></p>
 
-                <img src="assets/logo-tochoko.png" alt="TOCHOKO DE KB" class="checkout__product-image" />
-
-                <p>Ladrillo premium de cheesecake & chocolate</p>
-
-                <p class="checkout__price">
-                    <strong>59,99 €</strong> · Envío GRATIS
+                <p class="product-desc">
+                    Ladrillo premium de cheesecake & chocolate
                 </p>
 
-                <ul>
+                <div class="price-box">
+                    <span class="price-old">
+                        {{ (69.99 * quantity) | number:'1.2-2' }} €
+                    </span>
+                    <span class="price-current">
+                        {{ totalPrice | number:'1.2-2' }} €
+                    </span>
+                </div>
+
+                <p class="free-shipping">
+                    Envío GRATIS · {{ quantity }} unidad{{ quantity > 1 ? 'es' : '' }}
+                </p>
+
+                <ul class="side__bullets">
                     <li>Producto artesanal</li>
                     <li>Drop ultra limitado</li>
-                    <li>Envío refrigerado con SEUR</li>
-                    <li>Email de confirmación</li>
+                    <li>Envío refrigerado SEUR</li>
                     <li>Seguimiento por código</li>
                 </ul>
             </aside>

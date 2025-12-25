@@ -8,4 +8,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
-export class Header { }
+export class Header {
+
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
+}

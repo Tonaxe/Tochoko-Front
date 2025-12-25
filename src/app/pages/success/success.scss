@@ -3,97 +3,107 @@
 }
 
 .success {
-    padding: clamp(24px, 4vw, 48px) 16px;
+    padding: clamp(28px, 4vw, 56px) 16px;
     text-align: center;
 }
 
 .success__shell {
-    max-width: 640px;
+    max-width: 620px;
     margin: 0 auto;
 }
 
 .success__card {
-    padding: 28px 22px;
+    padding: 30px 24px;
 }
+
+/* ICONO */
 
 .success__icon {
     width: 72px;
     height: 72px;
-    margin: 0 auto 12px;
+    margin: 0 auto 14px;
     border-radius: 50%;
     background: rgba(108, 73, 31, 0.14);
     border: 2px solid rgba(108, 73, 31, 0.35);
     display: grid;
     place-items: center;
-    font-size: 38px;
+    font-size: 36px;
     color: #6c491f;
 }
 
+/* TITULOS */
+
 .success__title {
-    margin: 10px 0 6px;
-    font-size: clamp(32px, 4vw, 42px);
+    margin: 10px 0 8px;
+    font-size: clamp(30px, 4vw, 40px);
     color: #2b1a0f;
 }
 
 .success__text {
-    margin: 0 0 16px;
+    margin: 0 0 18px;
     font-size: 18px;
     color: rgba(43, 26, 15, 0.75);
 }
 
+/* CÓDIGO RESERVA */
+
+.success__reference {
+    margin: 14px 0 20px;
+    font-size: 16px;
+    color: rgba(43, 26, 15, 0.85);
+
+    strong {
+        display: inline-block;
+        margin-left: 6px;
+        letter-spacing: 0.6px;
+        color: #2b1a0f;
+    }
+}
+
+/* INFO */
+
 .success__info {
     margin: 18px 0;
-    padding: 14px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.4);
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.45);
     border: 1px dashed rgba(43, 26, 15, 0.2);
     color: rgba(43, 26, 15, 0.85);
 
     p {
-        margin: 6px 0;
+        margin: 8px 0;
+        font-size: 15px;
     }
 }
 
+/* ACCIONES */
+
 .success__actions {
-    display: grid;
-    gap: 10px;
-    margin-top: 18px;
+    margin-top: 22px;
 }
+
+/* BOTONES */
 
 .btn {
     display: inline-block;
     text-decoration: none;
-    padding: 14px 16px;
-    border-radius: 16px;
-    font-size: 18px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 600;
     cursor: pointer;
-    transition: transform 120ms ease, box-shadow 120ms ease,
-        background 120ms ease;
 
     &--primary {
         background: #6c491f;
         color: #f7eedf;
-        box-shadow: 0 12px 28px rgba(43, 26, 15, 0.18);
-
-        &:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 14px 32px rgba(43, 26, 15, 0.22);
-        }
-    }
-
-    &--ghost {
-        background: transparent;
-        color: #6c491f;
-        border: 1px solid rgba(108, 73, 31, 0.35);
-
-        &:hover {
-            background: rgba(108, 73, 31, 0.08);
-        }
+        box-shadow: 0 10px 24px rgba(43, 26, 15, 0.18);
     }
 }
 
+/* MICRO COPY */
+
 .success__micro {
-    margin-top: 16px;
+    margin-top: 18px;
     font-size: 14px;
     color: rgba(43, 26, 15, 0.6);
 }

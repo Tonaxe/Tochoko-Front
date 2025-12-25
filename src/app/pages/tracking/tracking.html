@@ -1,46 +1,67 @@
 <section class="tracking">
     <div class="tracking__shell">
+
         <header class="tracking__header">
             <h1 class="tracking__title">Seguimiento del pedido</h1>
             <p class="tracking__subtitle">
-                Introduce el código que recibiste por email.
+                Introduce el código de seguimiento que recibiste tras completar tu reserva.
             </p>
         </header>
-        
-        <article class="card" *ngIf="status === 'idle' || status === 'loading'">
+
+        <article class="card" *ngIf="viewStatus === 'idle' || viewStatus === 'loading'">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
                 <div class="field">
                     <label>Código de seguimiento</label>
-                    <input type="text" formControlName="code" placeholder="Ej: TOCHOKO123"
+                    <input type="text" formControlName="code" placeholder="Ej: TK-ABC12345"
                         [class.input--invalid]="f.code.touched && f.code.invalid" />
                     <p class="error" *ngIf="f.code.touched && f.code.invalid">
                         Introduce un código válido
                     </p>
                 </div>
 
-                <button class="btn" type="submit" [disabled]="status === 'loading'">
-                    {{ status === 'loading' ? 'Buscando…' : 'Buscar pedido' }}
+                <button class="btn" type="submit" [disabled]="viewStatus === 'loading'">
+                    {{ viewStatus === 'loading' ? 'Buscando…' : 'Buscar pedido' }}
                 </button>
+
             </form>
         </article>
 
-        <article class="card tracking__result" *ngIf="status === 'found'">
+        <article class="card tracking__result" *ngIf="viewStatus === 'found'">
             <div class="result__icon">📦</div>
 
-            <h2 class="result__title">Pedido en preparación</h2>
+            <h2 class="result__title">
+                {{ statusLabel }}
+            </h2>
 
             <p class="result__text">
-                Tu Tochoko está siendo preparado artesanalmente.
+                {{ statusMessage }}
             </p>
 
             <div class="result__info">
-                <p><strong>Producto:</strong> Tochoko · Ladrillo</p>
-                <p><strong>Envío:</strong> SEUR · 10€</p>
-                <p><strong>Estado:</strong> En preparación</p>
+                <p>
+                    <strong>Código:</strong>
+                    {{ order?.trackingCode }}
+                </p>
+
+                <p>
+                    <strong>Producto:</strong>
+                    Tochoko · Ladrillo
+                </p>
+
+                <p>
+                    <strong>Cantidad:</strong>
+                    {{ order?.quantity }} unidad{{ order?.quantity! > 1 ? 'es' : '' }}
+                </p>
+
+                <p>
+                    <strong>Estado:</strong>
+                    {{ statusLabel }}
+                </p>
             </div>
 
             <p class="result__hint">
-                Recibirás un email cuando el pedido salga de nuestro obrador.
+                Conserva este código para futuras consultas sobre tu pedido.
             </p>
 
             <button class="btn btn--ghost" (click)="reset()">
@@ -48,18 +69,20 @@
             </button>
         </article>
 
-        <article class="card tracking__result" *ngIf="status === 'not-found'">
+        <article class="card tracking__result" *ngIf="viewStatus === 'not-found'">
             <div class="result__icon">❓</div>
 
             <h2 class="result__title">Pedido no encontrado</h2>
 
             <p class="result__text">
-                Revisa el código o prueba de nuevo en unos minutos.
+                El código introducido no corresponde a ningún pedido.
+                Revisa que esté bien escrito o inténtalo de nuevo más tarde.
             </p>
 
             <button class="btn btn--ghost" (click)="reset()">
                 Volver a intentar
             </button>
         </article>
+
     </div>
 </section>

@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-success',
@@ -10,4 +11,11 @@ import { RouterModule } from '@angular/router';
   styleUrl: './success.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Success { }
+export class Success {
+
+  private route = inject(ActivatedRoute);
+
+  trackingCode$ = this.route.queryParamMap.pipe(
+    map(params => params.get('code'))
+  );
+}
