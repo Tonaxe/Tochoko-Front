@@ -12,6 +12,8 @@ body {
 }
 
 :root {
+  --red-accent: #c62828;
+  --red-soft: rgba(198, 40, 40, 0.12);
   --paper: #f7eedf;
   --ink: #2b1a0f;
   --choco: #6c491f;
@@ -20,7 +22,7 @@ body {
 body,
 app-root,
 .app-layout {
-  font-family: "Patrick Hand", cursive;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--ink);
 }
 

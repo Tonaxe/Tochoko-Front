@@ -1,35 +1,83 @@
 <section class="home">
-    <div class="home__content">
+    <div class="home__layout">
 
-        <img class="home__image" src="assets/logo-tochoko.png" alt="Ladrillo de chocolate Tochoko" />
+        <div class="home__media">
 
-        <p class="home__text">
-            Chocolate en formato ladrillo.<br />
-            Edición limitada.
-        </p>
-
-        <button class="home__cta" routerLink="/checkout">
-            Comprar ahora
-        </button>
-
-        <div class="home__payments">
-            <div class="payment payment--secure">
-                <img src="assets/payments/lock.svg" alt="Pago seguro" />
-                <span>Pago seguro</span>
+            <div class="media__main">
+                <img [src]="selectedImage" alt="Tochoko imagen principal" />
             </div>
 
-            <div class="payment">
-                <img src="assets/payments/visa.svg" alt="Visa" />
-                <img src="assets/payments/mastercard.svg" alt="Mastercard" />
+            <div class="media__thumbs">
+                <img src="assets/1.jpeg" (click)="selectImage('assets/1.jpeg')" />
+                <img src="assets/2.jpeg" (click)="selectImage('assets/2.jpeg')" />
+                <img src="assets/3.jpeg" (click)="selectImage('assets/3.jpeg')" />
+                <img src="assets/4.jpeg" (click)="selectImage('assets/4.jpeg')" />
+                <img src="assets/5.jpeg" (click)="selectImage('assets/5.jpeg')" />
             </div>
 
-            <div class="payment">
-                <img src="assets/payments/paypal.svg" alt="PayPal" />
+        </div>
+
+        <div class="home__info">
+
+            <span class="badge-discount">AHORRA 15%</span>
+
+            <h1 class="home__title">TOCHOKO DE KB</h1>
+
+            <p class="home__subtitle">
+                Ladrillo premium de cheesecake & chocolate
+            </p>
+
+            <div class="home__price">
+                <span class="price--old">69,99 €</span>
+                <span class="price--offer">59,99 €</span>
             </div>
 
-            <div class="payment">
-                <img src="assets/payments/bizum.svg" alt="Bizum" />
+            <div class="purchase">
+                <div class="quantity">
+                    <button (click)="decrease()">−</button>
+                    <span>{{ quantity }}</span>
+                    <button (click)="increase()">+</button>
+                </div>
+
+                <button class="buy">
+                    Comprar ahora
+                </button>
             </div>
+
+            <p class="home__description">
+                Ladrillo de <strong>cremosa cheesecake Philadelphia</strong> y
+                <strong>Nocilla</strong>, con crujiente de
+                <strong>pasta kataifi</strong>, <strong>toffee blando</strong> y
+                <strong>brownie fundente</strong>.
+                Coronado con auténticas <strong>barritas Kinder Bueno</strong>.
+            </p>
+            
+            <details class="accordion">
+                <summary>Envíos y devoluciones</summary>
+                <p>
+                    Envío gratuito a península. Producto artesanal alimentario.
+                    No se aceptan devoluciones salvo incidencias en el transporte.
+                </p>
+            </details>
+
+            <details class="accordion">
+                <summary>Ingredientes</summary>
+
+                <p><strong>Cheesecake de avellana:</strong> queso crema Philadelphia,
+                    yogur griego, Nocilla, huevo, maicena, agar-agar, vainilla, sal.</p>
+
+                <p><strong>Capa crujiente:</strong> pasta kataifi, mantequilla,
+                    chocolate con leche, avellanas.</p>
+
+                <p><strong>Brownie fundente:</strong> chocolate negro, mantequilla,
+                    huevos, azúcar, harina de trigo, sal.</p>
+
+                <p><strong>Toffee:</strong> azúcar, nata, mantequilla, avellanas, sal.</p>
+
+                <p><strong>Alérgenos:</strong> LECHE · HUEVO · FRUTOS DE CÁSCARA · GLUTEN · SOJA</p>
+
+                <p><strong>Notas:</strong> Producto artesanal · Conservar en frío</p>
+            </details>
         </div>
     </div>
 </section>
