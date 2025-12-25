@@ -27,7 +27,7 @@ export interface OrderTrackingResponse {
 
 @Injectable({ providedIn: 'root' })
 export class OrdersApi {
-  private readonly baseUrl = 'https://localhost:44334';
+  private readonly baseUrl = 'https://tochoko-back.onrender.com';
 
   constructor(private http: HttpClient) {}
 
