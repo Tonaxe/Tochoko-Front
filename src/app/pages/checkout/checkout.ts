@@ -14,7 +14,7 @@ import { OrdersApi } from '../../services/orders.api';
 })
 export class Checkout {
   quantity = 1;
-  unitPrice = 59.99;
+  unitPrice = 49.99;
 
   constructor(private route: ActivatedRoute, private ordersApi: OrdersApi,private router: Router) { }
   private fb = inject(FormBuilder);
