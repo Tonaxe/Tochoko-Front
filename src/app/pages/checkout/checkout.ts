@@ -1,8 +1,19 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrdersApi } from '../../services/orders.api';
+
+const SAFE_TEXT_REGEX = /^[a-zA-ZÀ-ÿ0-9\s.,\-#ºª]{3,150}$/;
+const CITY_REGEX = /^[a-zA-ZÀ-ÿ\s\-]{2,80}$/;
+const PHONE_REGEX = /^[0-9+\s]{9,15}$/;
+const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]{1,30}$/;
 
 @Component({
   selector: 'app-checkout',
@@ -13,26 +24,28 @@ import { OrdersApi } from '../../services/orders.api';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Checkout {
+
   quantity = 1;
   unitPrice = 49.99;
-
-  constructor(private route: ActivatedRoute, private ordersApi: OrdersApi, private router: Router) { }
-  private fb = inject(FormBuilder);
-
   isSubmitting = false;
 
+  private fb = inject(FormBuilder);
+
+  constructor(
+    private route: ActivatedRoute,
+    private ordersApi: OrdersApi,
+    private router: Router
+  ) { }
+
   form = this.fb.nonNullable.group({
-    fullName: ['', [Validators.required, Validators.minLength(3)]],
+    fullName: ['', [Validators.required, Validators.pattern(SAFE_TEXT_REGEX)]],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, Validators.minLength(9)]],
-    addressLine1: ['', [Validators.required]],
-    city: ['', [Validators.required]],
-    postalCode: ['', [
-      Validators.required,
-      peninsulaPostalCodeValidator
-    ]],
-    country: ['España', [Validators.required]],
-    instagram: ['', [Validators.required]],
+    instagram: ['', [Validators.required, Validators.pattern(INSTAGRAM_REGEX)]],
+    phone: ['', [Validators.required, Validators.pattern(PHONE_REGEX)]],
+    addressLine1: ['', [Validators.required, Validators.pattern(SAFE_TEXT_REGEX)]],
+    city: ['', [Validators.required, Validators.pattern(CITY_REGEX)]],
+    postalCode: ['', [Validators.required, peninsulaPostalCodeValidator]],
+    country: ['España', [Validators.required, Validators.pattern(/^España$/)]],
   });
 
   get f() {
@@ -50,6 +63,24 @@ export class Checkout {
     return this.quantity * this.unitPrice;
   }
 
+  blockPaste(event: ClipboardEvent) {
+    const text = event.clipboardData?.getData('text/plain') ?? '';
+    if (/[<>]/.test(text)) {
+      event.preventDefault();
+    }
+  }
+
+  private sanitizePayload(data: any) {
+    const cleaned: any = {};
+    Object.keys(data).forEach(key => {
+      cleaned[key] =
+        typeof data[key] === 'string'
+          ? data[key].trim().replace(/[<>]/g, '')
+          : data[key];
+    });
+    return cleaned;
+  }
+
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -58,10 +89,10 @@ export class Checkout {
 
     this.isSubmitting = true;
 
-    const payload = {
+    const payload = this.sanitizePayload({
       ...this.form.getRawValue(),
       quantity: this.quantity
-    };
+    });
 
     this.ordersApi.createOrder(payload).subscribe({
       next: (res) => {
@@ -72,7 +103,7 @@ export class Checkout {
       },
       error: () => {
         this.isSubmitting = false;
-        alert('Error al crear el pedido. Inténtalo de nuevo.');
+        alert('Error al crear el pedido.');
       }
     });
   }

@@ -1,7 +1,6 @@
 <section class="checkout">
     <div class="checkout__shell">
 
-        <!-- HEADER -->
         <header class="checkout__header">
             <h1 class="checkout__title">Finalizar reserva</h1>
             <p class="checkout__subtitle">
@@ -11,54 +10,62 @@
 
         <div class="checkout__grid">
 
-            <!-- FORMULARIO -->
             <article class="card">
                 <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
 
-                    <!-- DATOS PERSONALES -->
                     <h3 class="form-section">Datos personales</h3>
 
                     <div class="field">
                         <label>Nombre completo *</label>
                         <input type="text" formControlName="fullName" placeholder="Nombre y apellidos"
+                            (paste)="blockPaste($event)"
                             [class.input--invalid]="f.fullName.touched && f.fullName.invalid" />
-                        <p class="error" *ngIf="f.fullName.touched && f.fullName.invalid">Campo obligatorio</p>
+                        <p class="error" *ngIf="f.fullName.touched && f.fullName.errors?.['pattern']">
+                            Caracteres no permitidos
+                        </p>
                     </div>
 
                     <div class="field">
                         <label>Email *</label>
                         <input type="email" formControlName="email" placeholder="tu@email.com"
                             [class.input--invalid]="f.email.touched && f.email.invalid" />
-                        <p class="error" *ngIf="f.email.touched && f.email.invalid">Email no válido</p>
+                        <p class="error" *ngIf="f.email.touched && f.email.invalid">
+                            Email no válido
+                        </p>
                     </div>
 
                     <div class="field">
                         <label>Instagram *</label>
-                        <input type="text" formControlName="instagram" placeholder="Nombre de usuario de Instagram"
+                        <input type="text" formControlName="instagram" placeholder="usuario_instagram"
+                            (paste)="blockPaste($event)"
                             [class.input--invalid]="f.instagram.touched && f.instagram.invalid" />
-                        <p class="error" *ngIf="f.instagram.touched && f.instagram.invalid">Campo obligatorio</p>
+                        <p class="error" *ngIf="f.instagram.touched && f.instagram.errors?.['pattern']">
+                            Usuario no válido
+                        </p>
                     </div>
 
                     <div class="field">
                         <label>Teléfono *</label>
                         <input type="tel" formControlName="phone" placeholder="+34 600 000 000"
                             [class.input--invalid]="f.phone.touched && f.phone.invalid" />
-                        <p class="error" *ngIf="f.phone.touched && f.phone.invalid">Teléfono no válido</p>
+                        <p class="error" *ngIf="f.phone.touched && f.phone.errors?.['pattern']">
+                            Teléfono no válido
+                        </p>
                     </div>
 
-                    <!-- DIRECCIÓN -->
                     <h3 class="form-section">Dirección de envío</h3>
 
                     <div class="field">
                         <label>Dirección *</label>
                         <input type="text" formControlName="addressLine1" placeholder="Calle, número, piso"
+                            (paste)="blockPaste($event)"
                             [class.input--invalid]="f.addressLine1.touched && f.addressLine1.invalid" />
                     </div>
 
                     <div class="row">
                         <div class="field">
                             <label>Ciudad *</label>
-                            <input type="text" formControlName="city" placeholder="Ciudad"
+                            <input type="text" formControlName="city" placeholder="Ciudad" (paste)="blockPaste($event)"
                                 [class.input--invalid]="f.city.touched && f.city.invalid" />
                         </div>
 
@@ -70,31 +77,12 @@
                     </div>
 
                     <p class="error" *ngIf="f.postalCode.touched && f.postalCode.errors?.['notPeninsula']">
-                            Actualmente solo enviamos a la península.
-                        </p>
+                        Actualmente solo enviamos a la península.
+                    </p>
 
                     <div class="field">
                         <label>País *</label>
-                        <input type="text" formControlName="country" placeholder="España"
-                            [class.input--invalid]="f.country.touched && f.country.invalid" />
-                    </div>
-
-                    <div class="shipping shipping--highlight">
-                        <span class="shipping__badge">ENVÍO GRATIS</span>
-                        <span class="shipping__text">
-                            Refrigerado · SEUR 24/48h (Península)
-                        </span>
-                    </div>
-
-                    <div class="trust">
-                        <p class="trust__title">Pago seguro</p>
-                        <div class="trust__logos">
-                            <img src="assets/payments/bizum.svg" alt="Bizum" />
-                        </div>
-                        <p class="trust__hint">
-                            El pedido se confirma ahora. En breve recibirás una solicitud de Bizum para completar el
-                            pago.
-                        </p>
+                        <input type="text" formControlName="country" readonly />
                     </div>
 
                     <button class="btn" type="submit" [disabled]="form.invalid || isSubmitting">
@@ -107,16 +95,9 @@
             <aside class="card card--side">
                 <h2>Tu pedido</h2>
 
-                <p class="product-name"><strong>TOCHOKO DE KB (1,3 kg)</strong></p>
-
-                <p class="product-desc">
-                    Ladrillo premium de cheesecake & chocolate
-                </p>
+                <p><strong>TOCHOKO DE KB (1,3 kg)</strong></p>
 
                 <div class="price-box">
-                    <span class="price-old">
-                        {{ (69.99 * quantity) | number:'1.2-2' }} €
-                    </span>
                     <span class="price-current">
                         {{ totalPrice | number:'1.2-2' }} €
                     </span>
@@ -125,13 +106,6 @@
                 <p class="free-shipping">
                     Envío GRATIS · {{ quantity }} unidad{{ quantity > 1 ? 'es' : '' }}
                 </p>
-
-                <ul class="side__bullets">
-                    <li>Producto artesanal</li>
-                    <li>Drop ultra limitado</li>
-                    <li>Envío con SEUR</li>
-                    <li>Seguimiento por código</li>
-                </ul>
             </aside>
 
         </div>
