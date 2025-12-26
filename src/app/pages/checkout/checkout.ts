@@ -26,7 +26,8 @@ const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]{1,30}$/;
 export class Checkout {
 
   quantity = 1;
-  unitPrice = 49.99;
+  priceOldUnit = 69.99;
+  unitPrice = 39.99;
   isSubmitting = false;
 
   private fb = inject(FormBuilder);

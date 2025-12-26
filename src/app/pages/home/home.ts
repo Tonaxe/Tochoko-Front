@@ -12,7 +12,7 @@ import { OrdersApi } from '../../services/orders.api';
 })
 export class Home implements OnInit {
 
-  priceUnit = 49.99;
+  priceUnit = 39.99;
   priceOldUnit = 69.99;
   quantity = 1;
   selectedImage = 'assets/1.webp';
