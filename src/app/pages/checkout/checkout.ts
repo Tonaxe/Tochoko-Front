@@ -98,9 +98,9 @@ export class Checkout {
     this.ordersApi.createOrder(payload).subscribe({
       next: (res) => {
         this.isSubmitting = false;
-        this.router.navigate(['/success'], {
-          queryParams: { code: res.trackingCode }
-        });
+
+        window.location.href =
+          `https://buy.stripe.com/5kQbJ14BifV8dGgev30Fi00`;
       },
       error: () => {
         this.isSubmitting = false;
