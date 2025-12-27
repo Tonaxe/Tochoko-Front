@@ -98,15 +98,14 @@ export class Checkout {
     this.ordersApi.createOrder(payload).subscribe({
       next: (res) => {
         this.isSubmitting = false;
-
-        window.location.href =
-          `https://buy.stripe.com/5kQbJ14BifV8dGgev30Fi00`;
+        window.location.href = 'https://buy.stripe.com/5kQbJ14BifV8dGgev30Fi00';
       },
-      error: () => {
+      error: (err) => { 
         this.isSubmitting = false;
         alert('Error al crear el pedido.');
       }
     });
+
   }
 }
 
