@@ -98,8 +98,7 @@ export class Checkout {
     this.ordersApi.createOrder(payload).subscribe({
       next: (res) => {
         this.isSubmitting = false;
-        //window.location.href = 'https://buy.stripe.com/5kQbJ14BifV8dGgev30Fi00';
-        window.location.href = 'https://buy.stripe.com/8x24gzd7OaAOby872B0Fi02';
+        window.location.href = 'https://buy.stripe.com/5kQbJ14BifV8dGgev30Fi00';
       },
       error: (err) => { 
         this.isSubmitting = false;
