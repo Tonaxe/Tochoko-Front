@@ -15,6 +15,15 @@ const CITY_REGEX = /^[a-zA-ZÀ-ÿ\s\-]{2,80}$/;
 const PHONE_REGEX = /^[0-9+\s]{9,15}$/;
 const INSTAGRAM_REGEX = /^[a-zA-Z0-9._]{1,30}$/;
 
+const NOT_PENINSULA_PREFIXES = new Set([
+  '07', // Baleares
+  '35', // Canarias (Las Palmas)
+  '38', // Canarias (Santa Cruz de Tenerife)
+  '51', // Ceuta
+  '52', // Melilla
+]);
+
+
 @Component({
   selector: 'app-checkout',
   standalone: true,
@@ -117,14 +126,9 @@ export function peninsulaPostalCodeValidator(
     return { invalidPostalCode: true };
   }
 
-  const prefix = Number(value.substring(0, 2));
+  const prefix = value.substring(0, 2);
 
-  if (
-    prefix === 7 ||
-    prefix === 51 ||
-    prefix === 52 ||
-    (prefix >= 35 && prefix <= 38)
-  ) {
+  if (NOT_PENINSULA_PREFIXES.has(prefix)) {
     return { notPeninsula: true };
   }
 
