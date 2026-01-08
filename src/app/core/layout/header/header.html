@@ -1,35 +1,29 @@
-<header class="header">
-    <div class="header__container">
-        
+<header class="site-header">
+    <div class="site-header__inner container">
         <a class="brand" routerLink="/">
             <img src="assets/logo-tochoko.png" alt="Tochoko" class="brand__logo" />
             <span class="brand__name">TOCHOKO</span>
         </a>
-        
         <nav class="nav nav--desktop">
             <a class="nav__link" routerLink="/tracking">
                 Seguimiento
             </a>
-
-            <a class="nav__cta" routerLink="/checkout">
+            <a class="btn btn-primary" routerLink="/checkout">
                 Comprar
             </a>
         </nav>
 
-        <button class="burger" (click)="toggleMenu()" aria-label="Abrir menú">
+        <button class="burger" (click)="toggleMenu()" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}">
             <span></span>
             <span></span>
             <span></span>
         </button>
-
     </div>
-
     <nav class="nav-mobile" [class.is-open]="menuOpen">
         <a class="nav-mobile__link" routerLink="/tracking" (click)="closeMenu()">
             Seguimiento
         </a>
-
-        <a class="nav-mobile__cta" routerLink="/checkout" (click)="closeMenu()">
+        <a class="btn btn-primary" routerLink="/checkout" (click)="closeMenu()">
             Comprar
         </a>
     </nav>

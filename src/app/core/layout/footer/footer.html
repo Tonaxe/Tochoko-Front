@@ -1,15 +1,43 @@
-<footer class="footer">
-    <div class="footer__container">
-        <p>© Tochoko</p>
+<footer class="site-footer">
+    <div class="site-footer__inner container">
 
-        <div class="links">
-            <a href="/terminos">Términos</a>
-            <a href="/privacidad">Privacidad</a>
-            <a href="/cookies">Cookies</a>
+        <div class="footer-brand">
+            <span class="footer-brand__name">TOCHOKO</span>
+            <p class="footer-brand__claim">
+                Chocolate de autor. Drops limitados.
+            </p>
         </div>
 
-        <a class="mail" href="mailto:tochoko@outlook.es">
-            tochoko@outlook.es
-        </a>
+        <nav class="footer-nav">
+            <a routerLink="/terminos">Términos</a>
+            <a routerLink="/privacidad">Privacidad</a>
+            <a routerLink="/cookies">Cookies</a>
+        </nav>
+
+        <div class="footer-contact">
+            <a href="mailto:tochoko@outlook.es">
+                tochoko@outlook.es
+            </a>
+        </div>
+
+        <div class="footer-social">
+            <a href="https://www.instagram.com/tochoko.es/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6.5-.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                </svg>
+            </a>
+
+            <a href="https://www.tiktok.com/@tochoko.es" target="_blank" rel="noopener" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M21 8.5a6.7 6.7 0 01-4.5-1.7v7.2a5.5 5.5 0 11-5.5-5.5c.3 0 .6 0 .9.1v2.9a2.7 2.7 0 10 1.9 2.6V2h2.7a4 4 0 004 4v2.5z" />
+                </svg>
+            </a>
+        </div>
+        <div class="footer-bottom">
+            <span>© {{ currentYear }} Tochoko</span>
+        </div>
+
     </div>
 </footer>
