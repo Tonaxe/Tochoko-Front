@@ -1,272 +1,133 @@
-.home {
-    padding: 64px 24px;
+/* ======================================================
+   HERO
+====================================================== */
+
+.hero {
+  padding: 120px 0 140px;
+  text-align: center;
 }
 
-.home__layout {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: auto 0.9fr;
-    gap: 56px;
+.hero__inner {
+  max-width: 720px;
 }
 
-.home__media {
-    display: grid;
-    grid-template-columns: 1fr 72px;
-    gap: 16px;
+.hero__eyebrow {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--brand-brown);
 }
 
-.media__main {
-    height: 520px;
-    overflow: hidden;
+.hero__title {
+  margin-bottom: 20px;
 }
 
-.media__main img {
-    width: 100%;
-    height: 100%;
-    background: #f7eedf;
+.hero__subtitle {
+  margin-bottom: 40px;
+  font-size: 16px;
 }
 
-.media__thumbs {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.hero__cta {
+  display: flex;
+  justify-content: center;
 }
 
-.media__thumbs img {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-    cursor: pointer;
-    opacity: 0.6;
+/* ======================================================
+   DROPS
+====================================================== */
+
+.drops {
+  padding: 96px 0;
 }
 
-.media__thumbs img:hover {
-    opacity: 1;
-}
+.drops__header {
+  max-width: 480px;
+  margin: 0 auto 56px;
+  text-align: center;
 
-.home__info {
-    display: flex;
-    flex-direction: column;
-}
-
-.badge-discount {
-    background: var(--red-soft);
-    color: var(--red-accent);
-    font-size: 12px;
-    padding: 4px 8px;
-    width: fit-content;
+  h2 {
     margin-bottom: 12px;
-}
+  }
 
-.home__title {
-    font-size: 42px;
-    margin: 0;
-}
-
-.home__subtitle {
-    font-size: 15px;
-    opacity: 0.7;
-    margin-bottom: 16px;
-}
-
-.home__price {
-    margin-bottom: 20px;
-}
-
-.price--old {
-    text-decoration: line-through;
-    margin-right: 8px;
-    opacity: 0.5;
-}
-
-.price--offer {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--red-accent);
-}
-
-.purchase {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 22px;
-}
-
-.quantity {
-    display: flex;
-    border: 1px solid #000;
-}
-
-.quantity button {
-    width: 32px;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.quantity span {
-    width: 32px;
-    text-align: center;
-    line-height: 32px;
-}
-
-.buy {
-    flex: 1;
-    background: #6c491f;
-    color: #fff;
-    border: none;
+  p {
     font-size: 14px;
-    padding-bottom: 5px;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    cursor: pointer;
+  }
 }
 
-.buy:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+/* ======================================================
+   GRID
+====================================================== */
+
+.drops__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
 }
 
-.order-limit {
-    margin-bottom: 16px;
-    font-size: 13px;
-    color: #b00020;
+/* ======================================================
+   DROP CARD
+====================================================== */
+
+.drop-card {
+  position: relative;
+  height: 200px;
+  border-radius: 16px;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--black);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: var(--brand-brown);
+    transform: translateY(-2px);
+  }
 }
 
-.home__description {
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 24px;
+.drop-card__name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
 }
 
-.accordion {
-    border-top: 1px solid #ddd;
-    padding: 14px 0;
-}
+/* ======================================================
+   SOLD OUT
+====================================================== */
 
-.accordion summary {
-    cursor: pointer;
-    font-weight: 600;
-    position: relative;
-}
+.drop-card.is-soldout {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 
-.accordion summary::after {
-    content: "+";
+  .drop-card__status {
     position: absolute;
-    right: 0;
-    transition: transform 0.2s ease;
+    top: 18px;
+    right: 18px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+  }
 }
 
-.accordion[open] summary::after {
-    transform: rotate(45deg);
-}
+/* ======================================================
+   RESPONSIVE
+====================================================== */
 
-.accordion p {
-    margin-top: 12px;
-    font-size: 13px;
-    line-height: 1.5;
-    animation: fadeIn 0.25s ease;
-}
+@media (max-width: 640px) {
+  .hero {
+    padding: 96px 0 112px;
+  }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-4px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@media (max-width: 900px) {
-    .home {
-        padding: 32px 16px;
-    }
-
-    .home__layout {
-        grid-template-columns: 1fr;
-        gap: 28px;
-    }
-
-    .home__media {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .media__main {
-        height: 360px;
-    }
-
-    .media__main img {
-        object-fit: cover;
-    }
-
-    .media__thumbs {
-        flex-direction: row;
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 6px;
-    }
-
-    .media__thumbs img {
-        width: 60px;
-        height: 60px;
-        flex-shrink: 0;
-    }
-
-    .home__title {
-        font-size: 32px;
-        line-height: 1.1;
-    }
-
-    .home__subtitle {
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-
-    .home__price {
-        margin-bottom: 16px;
-    }
-
-    .price--offer {
-        font-size: 26px;
-    }
-
-    .purchase {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .quantity {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .quantity button,
-    .quantity span {
-        width: 44px;
-        height: 44px;
-        line-height: 44px;
-        font-size: 18px;
-    }
-
-    .buy {
-        width: 100%;
-        padding: 14px 0;
-        font-size: 16px;
-    }
-
-    .home__description {
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .accordion summary {
-        font-size: 15px;
-    }
-
-    .accordion p {
-        font-size: 13px;
-    }
+  .hero__title {
+    font-size: 32px;
+  }
 }
