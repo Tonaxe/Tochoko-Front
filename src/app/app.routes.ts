@@ -10,39 +10,39 @@ import { DropComingSoon } from './pages/drop-coming-soon/drop-coming-soon';
 import { ProductDetail } from './pages/product-detail/product-detail';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: Home
-    },
-    {
-        path: 'checkout',
-        component: Checkout
-    },
-    {
-        path: 'success',
-        component: Success
-    },
-    {
-        path: 'tracking',
-        component: Tracking
-    },
-    {
-        path: 'terminos',
-        component: Terms
-    },
-    {
-        path: 'privacidad',
-        component: Privacy
-    },
-    {
-        path: 'cookies',
-        component: Cookies
-    },
-    {
-        path: 'producto',
-        component: ProductDetail
-    }
+    // {
+    //     path: '',
+    //     component: Home
+    // },
+    // {
+    //     path: 'checkout',
+    //     component: Checkout
+    // },
+    // {
+    //     path: 'success',
+    //     component: Success
+    // },
+    // {
+    //     path: 'tracking',
+    //     component: Tracking
+    // },
+    // {
+    //     path: 'terminos',
+    //     component: Terms
+    // },
+    // {
+    //     path: 'privacidad',
+    //     component: Privacy
+    // },
+    // {
+    //     path: 'cookies',
+    //     component: Cookies
+    // },
+    // {
+    //     path: 'producto',
+    //     component: ProductDetail
+    // }
 
-    // { path: '', component: DropComingSoon },
-    // { path: '**', redirectTo: '' }
+    { path: '', component: DropComingSoon },
+    { path: '**', redirectTo: '' }
 ];
