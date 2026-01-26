@@ -26,11 +26,6 @@ export class Home {
       name: 'Drop 001',
       slug: 'drop-001',
       status: 'active',
-    },
-    {
-      name: 'Drop 001.1',
-      slug: 'drop-001-1',
-      status: 'active',
-    },
+    }
   ];
 }

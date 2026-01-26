@@ -28,12 +28,15 @@
     display: block;
 }
 
-.brand__name {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    line-height: 1;
+.brand__name{
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1;
+  display: inline-block;
+  transform: scaleY(2.5);
+  transform-origin: left;
 }
 
 .nav--desktop {

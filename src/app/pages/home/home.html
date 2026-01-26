@@ -1,6 +1,10 @@
 <section class="hero">
   <div class="container hero__inner">
-    <span class="hero__eyebrow"> DROP 001 </span>
+    <span class="hero__eyebrow">DROP 001</span>
+
+    <div class="hero__media">
+      <img class="hero__image hero__image--bouncy" src="assets/5.png" alt="Tochoko Drop 001" />
+    </div>
 
     <h1 class="hero__title">
       Chocolate de autor.<br />
@@ -10,7 +14,7 @@
     <p class="hero__subtitle">Producción artesanal. Unidades contadas.</p>
 
     <div class="hero__cta">
-      <a routerLink="/product/drop-001" class="btn btn-primary"> Comprar </a>
+      <a routerLink="/producto" class="btn btn-primary">Comprar</a>
     </div>
   </div>
 </section>
@@ -21,19 +25,19 @@
       <h2>Drops</h2>
       <p>Cuando se acaban, no vuelven.</p>
     </header>
-
     <div class="drops__grid">
-      <a
-        *ngFor="let drop of drops"
-        class="drop-card"
-        [class.is-soldout]="drop.status === 'soldout'"
-        [routerLink]="drop.status === 'active' ? ['/product', drop.slug] : null"
-      >
-        <span class="drop-card__name">
-          {{ drop.name }}
-        </span>
-
-        <span *ngIf="drop.status === 'soldout'" class="drop-card__status"> SOLD OUT </span>
+      <a class="drop-card is-soldout" aria-disabled="true" tabindex="-1">
+        <span class="drop-card__status">SOLD OUT</span>
+        <div class="drop-card__media">
+          <img class="drop-card__img" src="assets/5.png" alt="Drop 0" />
+        </div>
+        <span class="drop-card__name">DROP 0</span>
+      </a>
+      <a class="drop-card" routerLink="/producto">
+        <div class="drop-card__media">
+          <img class="drop-card__img" src="assets/5.png" alt="Drop 1" />
+        </div>
+        <span class="drop-card__name">DROP 1</span>
       </a>
     </div>
   </div>
