@@ -30,7 +30,7 @@ export class ProductDetail implements OnInit {
   priceOldUnit = 69.99;
 
   quantity = 1;
-  selectedImage = 'assets/1.webp';
+  selectedImage = 'assets/9.jpeg';
 
   canCreateOrder: boolean | null = null;
   remainingUnits = 0;

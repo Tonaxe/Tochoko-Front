@@ -11,7 +11,7 @@ import { ProductDetail } from './pages/product-detail/product-detail';
 
 export const routes: Routes = [
     {
-        path: 'home',
+        path: '',
         component: Home
     },
     {
@@ -43,6 +43,6 @@ export const routes: Routes = [
         component: ProductDetail
     },
 
-    { path: '', component: DropComingSoon },
-    { path: '**', redirectTo: '' }
+    // { path: '', component: DropComingSoon },
+    // { path: '**', redirectTo: '' }
 ];
