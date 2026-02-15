@@ -26,13 +26,11 @@ export class Success {
 
       return timer(0, 2000).pipe(
         switchMap(() => this.ordersApi.trackOrder(code)),
-        map(order => {
-          return {
-            ...order,
-            status: 'Paid',
-            paidAt: new Date().toISOString(),
-          } satisfies OrderTrackingResponse;
-        })
+        map(order => ({
+          ...order,
+          paidAt: new Date().toISOString(), // fuerza pagado “visual”
+          // status NO lo toques
+        }))
       );
     })
   );
