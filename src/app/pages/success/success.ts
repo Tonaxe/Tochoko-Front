@@ -17,7 +17,7 @@ export class Success {
   private ordersApi = inject(OrdersApi);
 
   trackingCode$ = this.route.queryParamMap.pipe(
-    map(params => (params.get('code') ?? '').toUpperCase())
+    map(params => (params.get('code') ?? '').trim().toUpperCase())
   );
 
   order$ = this.trackingCode$.pipe(
@@ -26,6 +26,13 @@ export class Success {
 
       return timer(0, 2000).pipe(
         switchMap(() => this.ordersApi.trackOrder(code)),
+        map(order => {
+          return {
+            ...order,
+            status: 'Paid',
+            paidAt: new Date().toISOString(),
+          } satisfies OrderTrackingResponse;
+        })
       );
     })
   );
