@@ -1,5 +1,6 @@
-*,*::before,
-*::after {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -24,7 +25,8 @@ body {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
   color: var(--black);
   background: var(--white);
   letter-spacing: 0.02em;
@@ -36,7 +38,8 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
   letter-spacing: 0.01em;
 }
 
@@ -113,7 +116,8 @@ a {
 button {
   all: unset;
   cursor: pointer;
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
 }
 
 .btn {
@@ -123,7 +127,7 @@ button {
   padding: 12px 20px;
   border-radius: 999px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.08em;
   transition: all 0.25s ease;
 }
