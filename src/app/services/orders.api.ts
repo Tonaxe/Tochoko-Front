@@ -65,10 +65,10 @@ export class OrdersApi {
         );
     }
 
-    createCheckoutSession(quantity: number) {
+    createCheckoutSession(quantity: number): Observable<CreateCheckoutSessionResponse> {
         return this.http.post<CreateCheckoutSessionResponse>(
             `${this.baseUrl}/api/checkout/session`,
-            { Quantity: quantity }
+            { quantity }
         );
     }
 }
