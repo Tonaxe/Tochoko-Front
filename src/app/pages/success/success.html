@@ -1,14 +1,18 @@
 <section class="success">
     <div class="success__shell">
-
         <article class="card success__card">
             <div class="success__top">
                 <div class="success__icon" aria-hidden="true">✓</div>
 
                 <div class="success__head">
                     <h1 class="success__title">Pedido recibido</h1>
+
                     <p class="success__subtitle">
                         Estamos verificando el pago y preparando tu Tochoko.
+                    </p>
+
+                    <p class="success__eta">
+                        Tu pedido puede tardar entre <strong>2–3 semanas</strong> en llegar.
                     </p>
                 </div>
             </div>
@@ -33,10 +37,6 @@
                     <a class="btn btn--primary" [routerLink]="['/producto']">
                         Volver al producto
                     </a>
-
-                    <a class="btn btn--ghost" [routerLink]="['/tracking']">
-                        Ir a seguimiento
-                    </a>
                 </div>
 
                 <p class="micro">
@@ -44,7 +44,6 @@
                     <a href="mailto:tochoko@outlook.es">tochoko@outlook.es</a>.
                 </p>
             </ng-template>
-
         </article>
     </div>
 </section>
