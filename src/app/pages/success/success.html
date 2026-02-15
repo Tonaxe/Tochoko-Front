@@ -32,7 +32,7 @@
                     </div>
 
                     <!-- PAID+ -->
-                    <div class="status status--ok" *ngIf="order.status !== 'PendingPayment'">
+                    <div class="status status--ok" *ngIf="order.status== 'PendingPayment'">
                         <div class="status__badge">✅ Pago confirmado</div>
                         <p class="status__msg">
                             Tu pedido está en estado:
