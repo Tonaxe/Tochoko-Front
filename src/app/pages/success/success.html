@@ -2,40 +2,126 @@
     <div class="success__shell">
 
         <article class="card success__card">
+            <div class="success__top">
+                <div class="success__icon" aria-hidden="true">✓</div>
 
-            <div class="success__icon">✓</div>
-
-            <h1 class="success__title">Reserva creada con éxito</h1>
-
-            <p class="success__text">
-                Tu Tochoko ha quedado reservado correctamente.
-            </p>
-
-            <div class="success__reference">
-                Código de reserva:
-                <strong>{{ trackingCode$ | async }}</strong>
+                <div class="success__head">
+                    <h1 class="success__title">Pedido recibido</h1>
+                    <p class="success__subtitle">
+                        Estamos verificando el pago y preparando tu Tochoko.
+                    </p>
+                </div>
             </div>
 
-            <div class="success__info">
-                <p>
-                    💬 En breve recibirás una <strong>solicitud de Bizum</strong> para completar el pago.
+            <div class="success__ref">
+                <span class="success__ref-label">Código de seguimiento</span>
+                <strong class="success__ref-code">{{ trackingCode$ | async }}</strong>
+            </div>
+
+            <ng-container *ngIf="order$ | async as order; else loading">
+                <!-- NOT FOUND -->
+                <ng-container *ngIf="order; else notFound">
+
+                    <!-- PENDING PAYMENT -->
+                    <div class="status status--pending" *ngIf="order.status === 'PendingPayment'">
+                        <div class="spinner" aria-hidden="true"></div>
+                        <div class="status__text">
+                            <strong>Confirmando pago…</strong>
+                            <span>Esto puede tardar unos segundos. No cierres esta página.</span>
+                        </div>
+                    </div>
+
+                    <!-- PAID+ -->
+                    <div class="status status--ok" *ngIf="order.status !== 'PendingPayment'">
+                        <div class="status__badge">✅ Pago confirmado</div>
+                        <p class="status__msg">
+                            Tu pedido está en estado:
+                            <strong>{{ order.status }}</strong>
+                        </p>
+
+                        <div class="summary">
+                            <div class="summary__row">
+                                <span>Cantidad</span>
+                                <strong>{{ order.quantity }} unidad{{ order.quantity > 1 ? 'es' : '' }}</strong>
+                            </div>
+
+                            <div class="summary__row">
+                                <span>Creado</span>
+                                <strong>{{ order.createdAt | date:'dd/MM/yyyy HH:mm' }}</strong>
+                            </div>
+
+                            <div class="summary__row" *ngIf="order.paidAt">
+                                <span>Pagado</span>
+                                <strong>{{ order.paidAt | date:'dd/MM/yyyy HH:mm' }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="hint">
+                            Guarda tu código. Podrás consultar el estado del envío cuando lo necesites.
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <a class="btn btn--primary" [routerLink]="['/tracking']">
+                            Ir a seguimiento
+                        </a>
+
+                        <a class="btn btn--ghost" [routerLink]="['/producto']">
+                            Volver al producto
+                        </a>
+                    </div>
+
+                    <p class="micro">
+                        Si tienes cualquier problema, escríbenos a
+                        <a href="mailto:tochoko@outlook.es">tochoko@outlook.es</a>.
+                    </p>
+
+                </ng-container>
+            </ng-container>
+
+            <ng-template #loading>
+                <div class="status status--pending">
+                    <div class="spinner" aria-hidden="true"></div>
+                    <div class="status__text">
+                        <strong>Cargando información del pedido…</strong>
+                        <span>Un momento.</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a class="btn btn--ghost" [routerLink]="['/producto']">
+                        Volver al producto
+                    </a>
+                </div>
+            </ng-template>
+
+            <ng-template #notFound>
+                <div class="status status--warn">
+                    <div class="status__badge">❗</div>
+                    <div class="status__text">
+                        <strong>No encontramos tu pedido</strong>
+                        <span>
+                            Puede que el pago aún se esté registrando. Espera 30 segundos y recarga.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a class="btn btn--primary" [routerLink]="['/producto']">
+                        Volver al producto
+                    </a>
+
+                    <a class="btn btn--ghost" [routerLink]="['/tracking']">
+                        Ir a seguimiento
+                    </a>
+                </div>
+
+                <p class="micro">
+                    Si el problema persiste, envíanos tu código y capturas a
+                    <a href="mailto:tochoko@outlook.es">tochoko@outlook.es</a>.
                 </p>
-                <p>
-                    📦 El envío se realizará una vez confirmado el Bizum.
-                </p>
-            </div>
-
-            <div class="success__actions">
-                <a routerLink="/" class="btn btn--primary">
-                    Volver a Tochoko
-                </a>
-            </div>
-
-            <p class="success__micro">
-                Si no recibes la solicitud en unos minutos contáctanos.
-            </p>
+            </ng-template>
 
         </article>
-
     </div>
 </section>

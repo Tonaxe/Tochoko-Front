@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, switchMap, timer, of } from 'rxjs';
+import { OrdersApi, OrderTrackingResponse } from '../../services/orders.api';
 
 @Component({
   selector: 'app-success',
@@ -12,10 +13,20 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Success {
-
   private route = inject(ActivatedRoute);
+  private ordersApi = inject(OrdersApi);
 
   trackingCode$ = this.route.queryParamMap.pipe(
-    map(params => params.get('code'))
+    map(params => (params.get('code') ?? '').toUpperCase())
+  );
+
+  order$ = this.trackingCode$.pipe(
+    switchMap(code => {
+      if (!code) return of(null);
+
+      return timer(0, 2000).pipe(
+        switchMap(() => this.ordersApi.trackOrder(code)),
+      );
+    })
   );
 }

@@ -73,19 +73,14 @@ export class ProductDetail implements OnInit {
 
   goToCheckout() {
     if (this.canCreateOrder === false) return;
-    if (this.isPaying) return;
 
-    this.isPaying = true;
-
-    this.ordersApi.createCheckoutSession(this.quantity)
-      .pipe(finalize(() => this.isPaying = false))
-      .subscribe({
-        next: (res) => {
-          window.location.assign(res.url);
-        },
-        error: () => {
-          alert('No se pudo iniciar el pago. Inténtalo de nuevo.');
-        }
-      });
+    this.ordersApi.createCheckoutSession(this.quantity).subscribe({
+      next: (res) => {
+        window.location.href = res.url;
+      },
+      error: () => {
+        alert('No se pudo iniciar el pago. Intenta de nuevo.');
+      }
+    });
   }
 }
