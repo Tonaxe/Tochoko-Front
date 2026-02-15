@@ -26,7 +26,7 @@ type ProductInfo = {
   styleUrl: './product-detail.scss',
 })
 export class ProductDetail implements OnInit {
-  priceUnit = 39.99;
+  priceUnit = 29.99;
   priceOldUnit = 69.99;
 
   quantity = 1;
