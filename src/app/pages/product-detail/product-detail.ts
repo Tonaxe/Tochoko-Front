@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { OrdersApi } from '../../services/orders.api';
+import { RouterModule } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { OrdersApi } from '../../services/orders.api';
 
 @Component({
   selector: 'app-product-detail',
+  standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
@@ -20,12 +21,10 @@ export class ProductDetail implements OnInit {
   canCreateOrder: boolean | null = null;
   remainingUnits = 0;
   hasLimitInfo = false;
+
   isPaying = false;
 
-  constructor(
-    private router: Router,
-    private ordersApi: OrdersApi
-  ) { }
+  constructor(private ordersApi: OrdersApi) {}
 
   ngOnInit(): void {
     this.ordersApi.canCreateOrder().subscribe({
@@ -55,32 +54,33 @@ export class ProductDetail implements OnInit {
 
   increase() {
     if (this.canCreateOrder === false) return;
-    if (!this.hasLimitInfo || this.quantity < this.remainingUnits) {
-      this.quantity++;
-    }
+    if (!this.hasLimitInfo || this.quantity < this.remainingUnits) this.quantity++;
   }
 
   decrease() {
     if (this.canCreateOrder === false) return;
-    if (this.quantity > 1) {
-      this.quantity--;
-    }
+    if (this.quantity > 1) this.quantity--;
   }
 
   selectImage(img: string) {
     this.selectedImage = img;
   }
 
-  goToCheckout() {
+  buyNow() {
     if (this.canCreateOrder === false) return;
+    if (this.isPaying) return;
 
-    this.ordersApi.createCheckoutSession(this.quantity).subscribe({
-      next: (res) => {
-        window.location.href = res.url;
-      },
-      error: () => {
-        alert('No se pudo iniciar el pago. Intenta de nuevo.');
-      }
-    });
+    this.isPaying = true;
+
+    this.ordersApi.createCheckoutSession(this.quantity)
+      .pipe(finalize(() => (this.isPaying = false)))
+      .subscribe({
+        next: (res) => {
+          window.location.assign(res.url);
+        },
+        error: () => {
+          alert('No se pudo iniciar el pago. Intenta de nuevo.');
+        }
+      });
   }
 }

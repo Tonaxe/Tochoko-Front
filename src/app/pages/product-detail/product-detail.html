@@ -50,9 +50,10 @@
                     </button>
                 </div>
 
-                <button class="buy" (click)="goToCheckout()" [disabled]="canCreateOrder === false || isPaying">
+                <button class="buy" (click)="buyNow()" [disabled]="canCreateOrder === false || isPaying">
                     {{ isPaying ? 'Redirigiendo…' : 'Comprar ahora' }}
                 </button>
+
             </div>
 
             @if (canCreateOrder === false) {
