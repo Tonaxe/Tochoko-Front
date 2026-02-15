@@ -25,6 +25,11 @@
                     (click)="selectImage('assets/8.jpeg')">
                     <img src="assets/8.jpeg" alt="Miniatura 4" />
                 </button>
+
+                <button type="button" class="thumb" [class.is-active]="selectedImage === 'assets/12.jpeg'"
+                    (click)="selectImage('assets/12.jpeg')">
+                    <img src="assets/12.jpeg" alt="Miniatura 5" />
+                </button>
             </div>
         </div>
 
