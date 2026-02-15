@@ -32,6 +32,14 @@ export interface CanCreateOrderResponse {
     max: number;
 }
 
+export interface CreateCheckoutSessionRequest {
+    quantity: number;
+}
+
+export interface CreateCheckoutSessionResponse {
+    url: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class OrdersApi {
     private readonly baseUrl = 'https://tochoko-back.onrender.com';
@@ -54,6 +62,13 @@ export class OrdersApi {
     canCreateOrder(): Observable<CanCreateOrderResponse> {
         return this.http.get<CanCreateOrderResponse>(
             `${this.baseUrl}/orders/can-create`
+        );
+    }
+
+    createCheckoutSession(quantity: number): Observable<CreateCheckoutSessionResponse> {
+        return this.http.post<CreateCheckoutSessionResponse>(
+            `${this.baseUrl}/api/checkout/session`,
+            { quantity }
         );
     }
 }

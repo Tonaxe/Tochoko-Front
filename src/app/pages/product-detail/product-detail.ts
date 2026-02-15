@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { OrdersApi } from '../../services/orders.api';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,6 +20,7 @@ export class ProductDetail implements OnInit {
   canCreateOrder: boolean | null = null;
   remainingUnits = 0;
   hasLimitInfo = false;
+  isPaying = false;
 
   constructor(
     private router: Router,
@@ -71,9 +73,19 @@ export class ProductDetail implements OnInit {
 
   goToCheckout() {
     if (this.canCreateOrder === false) return;
+    if (this.isPaying) return;
 
-    this.router.navigate(['/checkout'], {
-      queryParams: { qty: this.quantity }
-    });
+    this.isPaying = true;
+
+    this.ordersApi.createCheckoutSession(this.quantity)
+      .pipe(finalize(() => this.isPaying = false))
+      .subscribe({
+        next: (res) => {
+          window.location.assign(res.url);
+        },
+        error: () => {
+          alert('No se pudo iniciar el pago. Inténtalo de nuevo.');
+        }
+      });
   }
 }
