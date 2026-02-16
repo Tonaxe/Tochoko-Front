@@ -34,8 +34,9 @@ export interface CanCreateOrderResponse {
 
 export interface CreateCheckoutSessionRequest {
     quantity: number;
+    pickupMadrid: boolean;
+    discountCode?: string | null;
 }
-
 export interface CreateCheckoutSessionResponse {
     url: string;
 }
@@ -65,10 +66,10 @@ export class OrdersApi {
         );
     }
 
-    createCheckoutSession(quantity: number): Observable<CreateCheckoutSessionResponse> {
+    createCheckoutSession(payload: CreateCheckoutSessionRequest): Observable<CreateCheckoutSessionResponse> {
         return this.http.post<CreateCheckoutSessionResponse>(
             `${this.baseUrl}/api/checkout/session`,
-            { quantity }
+            payload
         );
     }
 }

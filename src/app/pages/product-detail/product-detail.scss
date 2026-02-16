@@ -125,6 +125,53 @@
     color: var(--brand-brown);
 }
 
+/* NEW: options */
+.options {
+    display: grid;
+    gap: 12px;
+    margin: 6px 0 16px;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.75);
+
+    input {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.discount {
+    display: grid;
+    gap: 6px;
+
+    input {
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid rgba(0, 0, 0, 0.14);
+        padding: 0 12px;
+        font-family: inherit;
+        font-weight: 600;
+        outline: none;
+        background: #fff;
+    }
+
+    .hint {
+        color: rgba(0, 0, 0, 0.55);
+        font-size: 12px;
+    }
+}
+
+.discount__error {
+    margin: 0;
+    color: #b00020;
+    font-size: 13px;
+}
+
 .purchase {
     display: grid;
     grid-template-columns: 120px 1fr;

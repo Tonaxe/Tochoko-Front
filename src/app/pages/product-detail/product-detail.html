@@ -8,12 +8,12 @@
             <div class="media__thumbs">
                 <button type="button" class="thumb" [class.is-active]="selectedImage === 'assets/7.jpeg'"
                     (click)="selectImage('assets/7.jpeg')">
-                    <img src="assets/7.jpeg" alt="Miniatura 2" />
+                    <img src="assets/7.jpeg" alt="Miniatura 1" />
                 </button>
-                
+
                 <button type="button" class="thumb" [class.is-active]="selectedImage === 'assets/9.jpeg'"
                     (click)="selectImage('assets/9.jpeg')">
-                    <img src="assets/9.jpeg" alt="Miniatura 1" />
+                    <img src="assets/9.jpeg" alt="Miniatura 2" />
                 </button>
 
                 <button type="button" class="thumb" [class.is-active]="selectedImage === 'assets/11.jpeg'"
@@ -49,6 +49,23 @@
                 <span class="price--offer">{{ totalPrice }} €</span>
             </div>
 
+            <!-- NEW: Recogida + descuento -->
+            <div class="options">
+                <label class="check">
+                    <input type="checkbox" [(ngModel)]="pickupMadrid" />
+                    <span>Vivo en Madrid centro y quiero recogerlo (envío 0€, Guadalajara)</span>
+                </label>
+
+                <div class="discount">
+                    <input type="text" placeholder="Código de descuento" [(ngModel)]="discountCode" />
+                    <small class="hint">Códigos DROP 0 (15%)</small>
+                </div>
+
+                @if (discountError) {
+                <p class="discount__error">❗ {{ discountError }}</p>
+                }
+            </div>
+
             <div class="purchase">
                 <div class="quantity">
                     <button (click)="decrease()" [disabled]="canCreateOrder === false || quantity <= 1">−</button>
@@ -69,9 +86,7 @@
             }
 
             @if (canCreateOrder !== false && hasLimitInfo) {
-            <p class="order-limit order-limit--warn">
-                ⏳ Quedan muy pocas unidades disponibles
-            </p>
+            <p class="order-limit order-limit--warn">⏳ Quedan muy pocas unidades disponibles</p>
             }
 
             <p class="home__description">
@@ -81,8 +96,9 @@
             <details class="accordion">
                 <summary>Envíos y devoluciones</summary>
                 <p>
-                    Envío exclusivamente a península (España). Gastos de envío: 9,99 €. El tiempo estimado de entrega es de 2-3 semanas.
-                    Producto artesanal alimentario. No se aceptan devoluciones, salvo incidencias durante el transporte. 
+                    Envío exclusivamente a península (España). Gastos de envío: 9,99 € (recogida Madrid: 0 €).
+                    El tiempo estimado de entrega es de 2-3 semanas.
+                    Producto artesanal alimentario. No se aceptan devoluciones, salvo incidencias durante el transporte.
                 </p>
             </details>
 

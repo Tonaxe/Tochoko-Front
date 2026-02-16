@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { OrdersApi } from '../../services/orders.api';
 
@@ -21,7 +22,7 @@ type ProductInfo = {
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
 })
@@ -31,6 +32,13 @@ export class ProductDetail implements OnInit {
 
   quantity = 1;
   selectedImage = 'assets/7.jpeg';
+
+  // NEW: Recogida Madrid (envío 0)
+  pickupMadrid = false;
+
+  // NEW: Código descuento
+  discountCode = '';
+  discountError: string | null = null;
 
   canCreateOrder: boolean | null = null;
   remainingUnits = 0;
@@ -88,12 +96,14 @@ export class ProductDetail implements OnInit {
         }
       },
       error: () => {
+        // si falla, no bloquees la venta
         this.canCreateOrder = true;
         this.hasLimitInfo = false;
       },
     });
   }
 
+  // Precio mostrado (NO es fuente de verdad; Stripe calcula en backend)
   get totalPrice(): number {
     return +(this.priceUnit * this.quantity).toFixed(2);
   }
@@ -127,16 +137,28 @@ export class ProductDetail implements OnInit {
     if (this.isPaying) return;
 
     this.isPaying = true;
+    this.discountError = null;
+
+    const code = (this.discountCode ?? '').trim();
 
     this.ordersApi
-      .createCheckoutSession(this.quantity)
+      .createCheckoutSession({
+        quantity: this.quantity,
+        pickupMadrid: this.pickupMadrid,
+        discountCode: code.length ? code : null,
+      })
       .pipe(finalize(() => (this.isPaying = false)))
       .subscribe({
         next: (res) => {
           window.location.assign(res.url);
         },
-        error: () => {
-          alert('No se pudo iniciar el pago. Intenta de nuevo.');
+        error: (err) => {
+          const msg =
+            err?.error?.error ??
+            err?.error?.message ??
+            'No se pudo iniciar el pago. Intenta de nuevo.';
+          this.discountError = msg;
+          alert(msg);
         },
       });
   }
